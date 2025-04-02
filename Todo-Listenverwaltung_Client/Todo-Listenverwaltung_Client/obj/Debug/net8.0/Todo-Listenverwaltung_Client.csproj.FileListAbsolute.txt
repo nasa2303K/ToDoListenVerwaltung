@@ -1,0 +1,17 @@
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\bin\Debug\net8.0\Todo-Listenverwaltung_Client.exe
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\bin\Debug\net8.0\Todo-Listenverwaltung_Client.deps.json
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\bin\Debug\net8.0\Todo-Listenverwaltung_Client.runtimeconfig.json
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\bin\Debug\net8.0\Todo-Listenverwaltung_Client.dll
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\bin\Debug\net8.0\Todo-Listenverwaltung_Client.pdb
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.AssemblyInfoInputs.cache
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.AssemblyInfo.cs
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.csproj.CoreCompileInputs.cache
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.dll
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\refint\Todo-Listenverwaltung_Client.dll
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.pdb
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.genruntimeconfig.cache
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\ref\Todo-Listenverwaltung_Client.dll
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Listenverwaltung_Client.csproj.AssemblyReference.cache
+C:\Users\saleem_a\source\repos\Todo-Listenverwaltung_Client\Todo-Listenverwaltung_Client\obj\Debug\net8.0\Todo-Lis.15D5A753.Up2Date
