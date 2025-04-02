@@ -1,0 +1,576 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: asad.saleem@gmx.de
+    name: Asad Naeem Saleem
+  description: API zur Verwaltung von Todo-Listen und deren Einträgen
+  title: Todo-Listenverwaltung API
+  version: 1.0.0
+externalDocs:
+  description: Entwurf und Implementierung einer REST-Schnittstelle
+  url: https://bbs-brinkstrasse.moodle-nds.de/pluginfile.php/317062/mod_resource/content/1/OpenAPI-Spezifikation%20v02.pdf
+servers:
+- url: http://127.0.0.1:5000
+tags:
+- description: Alle Endpunkte unserer Open-API Spezifikation
+  externalDocs:
+    description: Endpunkte der REST-API
+    url: https://bbs-brinkstrasse.moodle-nds.de/pluginfile.php/344401/mod_resource/content/1/OpenAPI-Spezifikation%20%28IFA32%29.pdf
+  name: Todo-Listenverwaltung
+paths:
+  /todo-list:
+    post:
+      description: Dieser Endpunkt erstellt eine neue Todo-Liste
+      operationId: createTodoList
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTodo-List'
+        description: JSON-Objekt mit dem Namen der Liste
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo-List'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_400_response'
+          description: Fehlerhafte Anfrage
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Todo-Liste hinzufügen
+      tags:
+      - Todo-Listenverwaltung
+  /todo-list/{list_id}:
+    delete:
+      description: Dieser Endpunkt löscht eine einzelne bestimmte Todo-Liste mitsamt
+        ihren Einträgen anhand der ID
+      operationId: deleteTodoList
+      parameters:
+      - description: URL-Element; ID der gewünschten Todo-Liste
+        explode: false
+        in: path
+        name: list_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteTodoList_200_response'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTodoList_404_response'
+          description: Nicht gefunden
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Todo-Liste löschen
+      tags:
+      - Todo-Listenverwaltung
+    get:
+      description: Dieser Endpunkt liefert eine einzelne bestimmte Todo-Liste anhand
+        der ID zurück
+      operationId: getTodoList
+      parameters:
+      - description: URL-Element; ID der gewünschten Todo-Liste
+        explode: false
+        in: path
+        name: list_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo-List'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTodoList_404_response'
+          description: Nicht gefunden
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Todo-Liste abrufen
+      tags:
+      - Todo-Listenverwaltung
+  /todo-lists:
+    get:
+      description: Dieser Endpunkt liefert eine Liste aller Todo-Listen zurück
+      operationId: getallTodoList
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - id: d78d4f14-ddcb-416d-a2d2-31d640dd4ccc
+                name: Einkaufsliste
+              - id: 9a5554ea-d523-4e39-87a8-4b34770401e0
+                name: Hausaufgabenliste
+              - id: 6c144572-44ce-42f6-a551-d180fa9afcdc
+                name: Projekteliste
+              schema:
+                items:
+                  $ref: '#/components/schemas/Todo-List'
+                type: array
+          description: OK
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Todo-Listen abrufen
+      tags:
+      - Todo-Listenverwaltung
+  /todo-list/{list_id}/entries:
+    get:
+      description: Dieser Endpunkt liefert eine Liste aller Einträge einer bestimmten
+        Todo-Liste zurück
+      operationId: getallEntries
+      parameters:
+      - description: URL-Element; ID der gewünschten Todo-Liste
+        explode: false
+        in: path
+        name: list_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+              - id: 13ba1ba6-4058-4780-a947-131e5ccc86ca
+                name: Brot
+                description: glutenfrei
+              - id: 820c92ac-b80a-44ed-9d53-e851ab9240c9
+                name: Pizza
+                description: Nur Margherita
+              - id: 1e81b8ac-efd6-493c-991f-f9c8317a3e14
+                name: Eis
+                description: 3 Packungen von Magnum
+              schema:
+                items:
+                  $ref: '#/components/schemas/Entries'
+                type: array
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTodoList_404_response'
+          description: Nicht gefunden
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Einträge abrufen
+      tags:
+      - Todo-Listenverwaltung
+  /todo-list/{list_id}/entry:
+    post:
+      description: Dieser Endpunkt erstellt einen neuen Eintrag in einer bestimmten
+        Todo-Liste
+      operationId: createEntry
+      parameters:
+      - description: URL-Element; ID der gewünschten Todo-Liste
+        explode: false
+        in: path
+        name: list_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewEntry'
+        description: JSON-Objekt mit dem Namen und der Beschreibung des Eintrags
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entries'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_400_response'
+          description: Fehlerhafte Anfrage
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTodoList_404_response'
+          description: Nicht gefunden
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Eintrag erstellen
+      tags:
+      - Todo-Listenverwaltung
+  /todo-list/{list_id}/entry/{entry_id}:
+    delete:
+      description: Dieser Endpunkt löscht einen bestimmten Eintrag in einer bestimmten
+        Todo-Liste
+      operationId: deleteEntry
+      parameters:
+      - description: URL-Element; ID der gewünschten Todo-Liste
+        explode: false
+        in: path
+        name: list_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: URL-Element; ID des gewünschten Eintrags
+        explode: false
+        in: path
+        name: entry_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteTodoList_200_response'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_400_response'
+          description: Fehlerhafte Anfrage
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTodoList_404_response'
+          description: Nicht gefunden
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Eintrag löschen
+      tags:
+      - Todo-Listenverwaltung
+    put:
+      description: Dieser Endpunkt aktualisiert einen bestimmten Eintrag in einer
+        bestimmten Todo-Liste
+      operationId: updateEntry
+      parameters:
+      - description: URL-Element; ID der gewünschten Todo-Liste
+        explode: false
+        in: path
+        name: list_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: URL-Element; ID des gewünschten Eintrags
+        explode: false
+        in: path
+        name: entry_id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewEntry'
+        description: JSON-Objekt mit dem Namen und der Beschreibung des Eintrags
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateEntry_200_response'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_400_response'
+          description: Fehlerhafte Anfrage
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTodoList_404_response'
+          description: Nicht gefunden
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_405_response'
+          description: Methode nicht erlaubt
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTodoList_500_response'
+          description: Interner Serverfehler
+      summary: Eintrag aktualisieren
+      tags:
+      - Todo-Listenverwaltung
+components:
+  parameters:
+    listid:
+      description: URL-Element; ID der gewünschten Todo-Liste
+      explode: false
+      in: path
+      name: list_id
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    entryid:
+      description: URL-Element; ID des gewünschten Eintrags
+      explode: false
+      in: path
+      name: entry_id
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/deleteTodoList_200_response'
+      description: OK
+    "400":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createTodoList_400_response'
+      description: Fehlerhafte Anfrage
+    "404":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getTodoList_404_response'
+      description: Nicht gefunden
+    "405":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createTodoList_405_response'
+      description: Methode nicht erlaubt
+    "500":
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createTodoList_500_response'
+      description: Interner Serverfehler
+  schemas:
+    NewTodo-List:
+      properties:
+        name:
+          description: Name der neuen Todo-Liste
+          example: Einkaufsliste
+          type: string
+      type: object
+    Todo-List:
+      example:
+        name: Einkaufsliste
+        id: d78d4f14-ddcb-416d-a2d2-31d640dd4ccc
+      properties:
+        id:
+          description: ID der Todo-Liste
+          example: d78d4f14-ddcb-416d-a2d2-31d640dd4ccc
+          format: uuid
+          type: string
+        name:
+          description: Name der Todo-Liste
+          example: Einkaufsliste
+          type: string
+      type: object
+    NewEntry:
+      example:
+        name: Brot
+        description: glutenfrei
+      properties:
+        name:
+          description: Name des Eintrags
+          example: Brot
+          type: string
+        description:
+          description: Beschreibung des Eintrags
+          example: glutenfrei
+          type: string
+      type: object
+    Entries:
+      example:
+        name: Brot
+        description: glutenfrei
+        id: 13ba1ba6-4058-4780-a947-131e5ccc86ca
+      properties:
+        id:
+          description: ID des Eintrags
+          example: 13ba1ba6-4058-4780-a947-131e5ccc86ca
+          format: uuid
+          type: string
+        name:
+          description: Name des Eintrags
+          example: Brot
+          type: string
+        description:
+          description: Beschreibung des Eintrags
+          example: glutenfrei
+          type: string
+      type: object
+    createTodoList_400_response:
+      properties:
+        message:
+          example: Die Anfrage ist ungültig
+          type: string
+      type: object
+    createTodoList_405_response:
+      properties:
+        message:
+          example: "Die Zielressource kann mit der genutzten Methode nicht abgerufen\
+            \ werden, obwohl diese dem Server bekannt ist"
+          type: string
+      type: object
+    createTodoList_500_response:
+      properties:
+        message:
+          example: Interner Serverfehler
+          type: string
+      type: object
+    getTodoList_404_response:
+      properties:
+        message:
+          example: Der Server konnte die angeforderte Ressource nicht finden
+          type: string
+      type: object
+    deleteTodoList_200_response:
+      example:
+        message: Die Anfrage war erfolgreich
+      properties:
+        message:
+          example: Die Anfrage war erfolgreich
+          type: string
+      type: object
+    updateEntry_200_response:
+      example:
+        name: Dunkelbrot
+        description: glutenfrei und geschnitten
+        id: 13ba1ba6-4058-4780-a947-131e5ccc86ca
+      properties:
+        id:
+          description: ID des Eintrags
+          example: 13ba1ba6-4058-4780-a947-131e5ccc86ca
+          format: uuid
+          type: string
+        name:
+          description: Name des Eintrags
+          example: Dunkelbrot
+          type: string
+        description:
+          description: Beschreibung des Eintrags
+          example: glutenfrei und geschnitten
+          type: string
+      type: object
+
