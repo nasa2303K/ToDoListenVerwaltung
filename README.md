@@ -15,8 +15,6 @@ Entwurf und Implementierung einer REST-Schnittstelle: Anforderungen und Spezifik
 Todo-Listenverwaltung_Server/: Server-seitiger Code für das Todo-Listenverwaltungssystem.
 
 Todo-Listenverwaltung_Client/: Quellcode und Konfigurationsdateien für den Client.
-
-openapi-generator-cli-7.0.1.jar: OpenAPI Generator zur Erstellung von API-Clients und -Servern
 generated-client/: Automatisch generierter Client-Code basierend auf der OpenAPI-Spezifikation.
 
 # API-Code generieren:
